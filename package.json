@@ -1,13 +1,14 @@
 {
-  "name": "projectrk045",
+  "name": "projectrk069",
   "version": "0.1.0",
   "private": true,
   "keywords": [
     "react",
     "react-konva",
-    "Rect"
+    "Rect",
+    "events"
       ],
-  "description": "How to preventDefault property of a shape in React-Konva",
+  "description": "How to resize and rotate canvas shapes with react-konva ?",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
