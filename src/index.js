@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { createRoot } from "react-dom/client";
-import { Stage, Layer, Rect, Transformer } from "react-konva";
+import { Stage, Layer, Rect, Transformer, Circle } from "react-konva";
 
 const Rectangle = ({ shapeProps, isSelected, onSelect, onChange }) => {
   const shapeRef = useRef();
@@ -9,6 +9,7 @@ const Rectangle = ({ shapeProps, isSelected, onSelect, onChange }) => {
   useEffect(() => {
     if (isSelected) {
       // we need to attach transformer manually
+      //TODO: this
       trRef.current.nodes([shapeRef.current]);
       trRef.current.getLayer().batchDraw();
     }
@@ -35,6 +36,7 @@ const Rectangle = ({ shapeProps, isSelected, onSelect, onChange }) => {
           // but in the store we have only width and height
           // to match the data better we will reset scale on transform end
           const node = shapeRef.current;
+          //TODO: scaleX & scaleY Unresolved function
           const scaleX = node.scaleX();
           const scaleY = node.scaleY();
 
@@ -53,9 +55,11 @@ const Rectangle = ({ shapeProps, isSelected, onSelect, onChange }) => {
       />
       {isSelected && (
         <Transformer
+          borderStrokeWidth={5}
           ref={trRef}
           boundBoxFunc={(oldBox, newBox) => {
             // limit resize
+            //TODO:dont work if there
             if (newBox.width < 5 || newBox.height < 5) {
               return oldBox;
             }
@@ -69,18 +73,20 @@ const Rectangle = ({ shapeProps, isSelected, onSelect, onChange }) => {
 
 const initialRectangles = [
   {
-    x: 10,
-    y: 10,
+    x: 100,
+    y: 200,
     width: 100,
     height: 100,
+    // radios: 70,
     fill: "red",
     id: "rect1",
   },
   {
-    x: 150,
-    y: 150,
+    x: 250,
+    y: 200,
     width: 100,
     height: 100,
+    // radios: 70,
     fill: "green",
     id: "rect2",
   },
@@ -103,7 +109,7 @@ const App = () => {
       width={window.innerWidth}
       height={window.innerHeight}
       onMouseDown={checkDeselect}
-      onTouchStart={checkDeselect}
+      // onTouchStart={checkDeselect}
     >
       <Layer>
         {rectangles.map((rect, i) => {
@@ -116,6 +122,7 @@ const App = () => {
                 setSelectShape(rect.id);
               }}
               onChange={(newAttrs) => {
+                //TODO rectangles.slice()
                 const rects = rectangles.slice();
                 rects[i] = newAttrs;
                 setRectangles(rects);
